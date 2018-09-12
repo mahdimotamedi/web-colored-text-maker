@@ -16,3 +16,7 @@ export const shuffle = function(array) {
 
     return array;
 };
+
+export const setScrollToBottom = function (obj) {
+    obj.scrollTop = obj.scrollHeight;
+};

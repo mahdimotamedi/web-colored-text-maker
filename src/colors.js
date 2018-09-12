@@ -1,8 +1,10 @@
+// main color for the first line
 export let mainColor = {
     textColor: '#000',
     bgColor: '#fff'
 };
 
+// colors with white background
 export let normalColors = [
     {
         textColor: '#000',
@@ -50,6 +52,7 @@ export let normalColors = [
     },
 ];
 
+// colors with background
 export let bgColors = [
     {
         textColor: '#000',
