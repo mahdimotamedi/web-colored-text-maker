@@ -9,7 +9,8 @@ $("#colored-text").on("focus", () => {
     document.execCommand('selectAll', false, null);
 });
 
-$("#main-text").on('keyup', (e) => {
+function createColoredText()
+{
     let colored_text = $("#colored-text");
 
     colored_text.html("");
@@ -57,4 +58,16 @@ $("#main-text").on('keyup', (e) => {
         else if (span.innerText.length > 50)
             span.style.fontSize = '20px';
     }
+}
+
+$("#main-text").on('keyup', (e) => {
+    let code = (event.keyCode ? event.keyCode : event.which);
+    if(code != '13' && code != '8')
+        return;
+
+    setTimeout(createColoredText, 0)
+});
+
+$("#main-text").on('focus blur', (e) => {
+    setTimeout(createColoredText, 0)
 });
