@@ -1,0 +1,12 @@
+#main-text {
+    height: 65vh;
+    font-size: 30px;
+}
+
+#colored-text {}
+
+#colored-text span {
+    display: inline-block;
+    word-break: break-all;
+    font-size: 70px;
+}

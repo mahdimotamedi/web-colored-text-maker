@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plain Text to Colored Text</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-5 mb-4">
+            <h3>Plain Text to Colored Text transformer. <a href="http://mmprogrammer.ir" target="_blank">Mehdi Motamadi</a></h3>
+        </div>
+
+        <div class="col-md-6">
+            <label for="main-text">Plain Text: </label><br>
+            <textarea name="main-text" id="main-text" class="form-control"></textarea>
+            <button onclick="document.getElementById('colored-text').focus();" class="btn btn-primary mt-3">Select All</button>
+        </div>
+
+        <div class="col-md-6">
+            <p id="colored-text" contenteditable="true"></p>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="./dist/app.js"></script>
+</body>
+</html>
