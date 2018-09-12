@@ -1,3 +1,9 @@
+/**
+ * shuffle an array (randomise items)
+ *
+ * @param array
+ * @return array
+ */
 export const shuffle = function(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -17,6 +23,11 @@ export const shuffle = function(array) {
     return array;
 };
 
+/**
+ * set scroll of an element ot bottom
+ *
+ * @param obj
+ */
 export const setScrollToBottom = function (obj) {
     obj.scrollTop = obj.scrollHeight;
 };
