@@ -6,8 +6,8 @@ import { normalColors, bgColors, mainColor } from './colors';
 window.normalColors = shuffle(normalColors);
 window.bgColors = shuffle(bgColors);
 
-$("#colored-text").on("focus", () => {
-    document.execCommand('selectAll', false, null);
+$("#colored-text").on("input", () => {
+    createColoredText();
 });
 
 /**
@@ -17,20 +17,19 @@ function createColoredText()
 {
     let colored_text = $("#colored-text");
 
-    colored_text.html("");
-
     let normalColorCounter = 0;
     let bgColorCounter = 0;
 
-    let mainText = $("#main-text").val();
-    localStorage.setItem('mainText', mainText);
-    let lines = mainText.split('\n');
+    let lines = colored_text.find('div');
+
+    // set to storage
+    localStorage.setItem('mainText', colored_text.html());
 
     for (let i = 0; i < lines.length; i++) {
 
-        let currentColor = i !== 0 ?
-            i % 4 === 0 ? bgColors[bgColorCounter++] : normalColors[normalColorCounter++]
-            : mainColor;
+        let currentColor = (i + 1) % 5 === 0
+            ? bgColors[bgColorCounter++]
+            : normalColors[normalColorCounter++];
 
         if (normalColorCounter >= normalColors.length)
             normalColorCounter = 0;
@@ -38,55 +37,42 @@ function createColoredText()
         if (bgColorCounter >= bgColors.length)
             bgColorCounter = 0;
 
-        colored_text.append(`<span style="color: ${currentColor.textColor}; background-color: ${currentColor.bgColor}" id="colored-text-${i}">
-                ${lines[i]}
-            </span><br>`);
+        let line = $(lines[i]);
+        line.css({
+            color: currentColor.textColor,
+            backgroundColor: currentColor.bgColor,
+        });
+        line.attr('id', `colored-text-${i}`);
 
-        let span = document.getElementById(`colored-text-${i}`);
+        let lineText = line.text();
 
         // set line font size by length
-        if (span.innerText.length <= 16)
-            continue;
+        if (lineText.length <= 16)
+            line[0].style.fontSize = '70px';
 
-        if (span.innerText.length > 16 && span.innerText.length <= 20)
-            span.style.fontSize = '55px';
+        else if (lineText.length > 16 && lineText.length <= 20)
+            line[0].style.fontSize = '55px';
 
-        else if (span.innerText.length > 20 && span.innerText.length <= 26)
-            span.style.fontSize = '50px';
+        else if (lineText.length > 20 && lineText.length <= 26)
+            line[0].style.fontSize = '50px';
 
-        else if (span.innerText.length > 26 && span.innerText.length <= 31)
-            span.style.fontSize = '43px';
+        else if (lineText.length > 26 && lineText.length <= 31)
+            line[0].style.fontSize = '43px';
 
-        else if (span.innerText.length > 31 && span.innerText.length <= 40)
-            span.style.fontSize = '38px';
+        else if (lineText.length > 31 && lineText.length <= 40)
+            line[0].style.fontSize = '38px';
 
-        else if (span.innerText.length > 40 && span.innerText.length <= 50)
-            span.style.fontSize = '27px';
+        else if (lineText.length > 40 && lineText.length <= 50)
+            line[0].style.fontSize = '27px';
 
-        else if (span.innerText.length > 50)
-            span.style.fontSize = '20px';
+        else if (lineText.length > 50)
+            line[0].style.fontSize = '20px';
     }
-
-    setScrollToBottom(colored_text[0]);
 }
-
-// add event listeners for the textarea
-$("#main-text").on('keyup', (e) => {
-    let code = (event.keyCode ? event.keyCode : event.which);
-    // if key is not Enter, do nothing
-    if(code != '13')
-        return;
-
-    setTimeout(createColoredText, 0)
-});
-
-$("#main-text").on('focus blur', (e) => {
-    setTimeout(createColoredText, 0)
-});
 
 // set saved text to page
 $(document).ready(() => {
     let mainText = localStorage.getItem('mainText');
-    $("#main-text").val(mainText);
+    $("#colored-text").html(mainText);
     createColoredText();
 });

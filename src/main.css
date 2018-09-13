@@ -4,13 +4,27 @@
 }
 
 #colored-text {
-    height: 70vh;
-    overflow-y: auto;
+    height: 75vh;
+    overflow-y: scroll;
     overflow-x: hidden;
+    font-size: 70px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    align-content: stretch;
 }
 
-#colored-text span {
-    display: inline-block;
+#colored-text:focus {
+    outline: 0;
+}
+
+#colored-text div {
     word-break: break-all;
     font-size: 70px;
+    margin-top: 7px;
 }
