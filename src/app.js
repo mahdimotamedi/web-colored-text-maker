@@ -21,7 +21,7 @@ function createColoredText()
     let normalColorCounter = 0;
     let bgColorCounter = 0;
 
-    let lines = colored_text.find('div');
+    let lines = colored_text.find('div, p, font');
 
     // set to storage
     localStorage.setItem('plainText', colored_text.html());
