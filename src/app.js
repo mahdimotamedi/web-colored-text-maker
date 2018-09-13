@@ -6,7 +6,8 @@ import { normalColors, bgColors, mainColor } from './colors';
 window.normalColors = shuffle(normalColors);
 window.bgColors = shuffle(bgColors);
 
-$("#colored-text").on("input", () => {
+let colored_text = $("#colored-text");
+colored_text.on("input", () => {
     createColoredText();
 });
 
@@ -23,7 +24,7 @@ function createColoredText()
     let lines = colored_text.find('div');
 
     // set to storage
-    localStorage.setItem('mainText', colored_text.html());
+    localStorage.setItem('plainText', colored_text.html());
 
     for (let i = 0; i < lines.length; i++) {
 
@@ -72,7 +73,7 @@ function createColoredText()
 
 // set saved text to page
 $(document).ready(() => {
-    let mainText = localStorage.getItem('mainText');
+    let mainText = localStorage.getItem('plainText');
     $("#colored-text").html(mainText);
     createColoredText();
 });
