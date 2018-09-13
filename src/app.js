@@ -71,6 +71,26 @@ function createColoredText()
     }
 }
 
+function selectAll()
+{
+    colored_text.focus();
+    document.execCommand('selectAll', false, null);
+}
+
+function clearInput()
+{
+    colored_text.html("");
+    createColoredText();
+}
+
+$("#select-all-btn").on('click', () => {
+    selectAll();
+});
+
+$("#clear-btn").on('click', () => {
+    clearInput();
+});
+
 // set saved text to page
 $(document).ready(() => {
     let mainText = localStorage.getItem('plainText');
