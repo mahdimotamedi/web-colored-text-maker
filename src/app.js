@@ -26,7 +26,10 @@ function createColoredText()
     let lines = colored_text.find('div, p, font');
 
     // set to storage
-    localStorage.setItem('plainText', colored_text.html());
+    if (colored_text.text())
+        localStorage.setItem('plainText', colored_text.html());
+    else
+        localStorage.setItem('plainText', '');
 
     for (let i = 0; i < lines.length; i++) {
 
