@@ -111,11 +111,14 @@ $("#clear-btn").on('click', () => {
 
 // set saved text to page
 $(document).ready(() => {
+    let coloredText = $("#colored-text");
+
     let mainText = localStorage.getItem('plainText');
     if (mainText)
-        $("#colored-text").html(mainText);
+        coloredText.html(mainText);
     else
-        $("#colored-text").html(defaultText);
+        coloredText.html(defaultText);
 
     createColoredText();
+    setScrollToBottom(coloredText[0]);
 });
