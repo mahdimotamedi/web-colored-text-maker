@@ -11,6 +11,8 @@ colored_text.on("input", () => {
     createColoredText();
 });
 
+const defaultText = `<div><span><br></span></div>`;
+
 /**
  * create colored text paragraph
  */
@@ -28,7 +30,7 @@ function createColoredText()
 
     for (let i = 0; i < lines.length; i++) {
 
-        let currentColor = (i + 1) % 5 === 0
+        let currentColor = (i === 0) ? mainColor : (i + 1) % 5 === 0
             ? bgColors[bgColorCounter++]
             : normalColors[normalColorCounter++];
 
@@ -39,6 +41,18 @@ function createColoredText()
             bgColorCounter = 0;
 
         let line = $(lines[i]);
+
+        // if there is a conflict of elements here, don't make it more complex...
+        if (line.find(':not(span)').length > 0 && !line.hasClass('MsoNormal'))
+            continue;
+
+        // always content of each line are in a single span
+        if (line.find('span').length !== 1) {
+            line.html(`<span>${line.text()}</span>`);
+        }
+
+        // set styles of line
+        line = line.find('span');
         line.css({
             color: currentColor.textColor,
             backgroundColor: currentColor.bgColor,
@@ -79,7 +93,7 @@ function selectAll()
 
 function clearInput()
 {
-    colored_text.html("");
+    $("#colored-text").html(defaultText);
     createColoredText();
 }
 
@@ -89,11 +103,16 @@ $("#select-all-btn").on('click', () => {
 
 $("#clear-btn").on('click', () => {
     clearInput();
+    $("#colored-text").focus();
 });
 
 // set saved text to page
 $(document).ready(() => {
     let mainText = localStorage.getItem('plainText');
-    $("#colored-text").html(mainText);
+    if (mainText)
+        $("#colored-text").html(mainText);
+    else
+        $("#colored-text").html(defaultText);
+
     createColoredText();
 });

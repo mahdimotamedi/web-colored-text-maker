@@ -9,22 +9,15 @@
     overflow-x: hidden;
     font-size: 70px;
     border: 1px solid rgba(0, 0, 0, .2);
-    padding: 10px;
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: baseline;
-    align-content: stretch;
+    padding: 0 10px 10px 10px;
+    line-height: 1.75;
 }
 
 #colored-text:focus {
     outline: 0;
 }
 
-#colored-text div {
+#colored-text div, p, font {
     word-break: break-all;
     font-size: 70px;
-    margin-top: 7px;
 }

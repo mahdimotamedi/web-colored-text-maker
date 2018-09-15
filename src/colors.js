@@ -7,10 +7,6 @@ export let mainColor = {
 // colors with white background
 export let normalColors = [
     {
-        textColor: '#000',
-        bgColor: '#fff'
-    },
-    {
         textColor: '#001F3F',
         bgColor: '#fff'
     },
@@ -48,6 +44,10 @@ export let normalColors = [
     },
     {
         textColor: '#111111',
+        bgColor: '#fff'
+    },
+    {
+        textColor: '#1c1c1c',
         bgColor: '#fff'
     },
 ];
