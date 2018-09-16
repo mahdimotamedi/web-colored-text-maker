@@ -6,30 +6,29 @@ import { normalColors, bgColors, mainColor } from './colors';
 window.normalColors = shuffle(normalColors);
 window.bgColors = shuffle(bgColors);
 
-let colored_text = $("#colored-text");
-colored_text.on("input", () => {
+const colored_text = document.getElementById("colored-text");
+colored_text.addEventListener("input", () => {
     createColoredText();
 });
 
 const defaultText = `<div><span><br></span></div>`;
+const TEXT_STORAGE_NAME = 'plainText';
 
 /**
  * create colored text paragraph
  */
 function createColoredText()
 {
-    let colored_text = $("#colored-text");
-
     let normalColorCounter = 0;
     let bgColorCounter = 0;
 
-    let lines = colored_text.find('div, p, font');
+    let lines = colored_text.querySelectorAll('div, p, font');
 
     // set to storage
-    if (colored_text.text())
-        localStorage.setItem('plainText', colored_text.html());
+    if (colored_text.innerText)
+        localStorage.setItem(TEXT_STORAGE_NAME, colored_text.innerHTML);
     else
-        localStorage.setItem('plainText', '');
+        localStorage.setItem(TEXT_STORAGE_NAME, '');
 
     for (let i = 0; i < lines.length; i++) {
 
@@ -43,48 +42,47 @@ function createColoredText()
         if (bgColorCounter >= bgColors.length)
             bgColorCounter = 0;
 
-        let line = $(lines[i]);
+        let line = lines[i];
 
         // if there is a conflict of elements here, don't make it more complex...
-        if (line.find(':not(span)').length > 0 && !line.hasClass('MsoNormal'))
+        if (line.querySelectorAll(':not(span)').length > 0 && !line.classList.contains('MsoNormal'))
             continue;
 
         // always content of each line are in a single span
-        if (line.find('span').length !== 1) {
-            line.html(`<span>${line.text()}</span>`);
+        if (line.querySelectorAll('span').length !== 1) {
+            line.innerHTML = `<span>${line.innerText}</span>`;
         }
 
         // set styles of line
-        line = line.find('span');
-        line.css({
-            color: currentColor.textColor,
-            backgroundColor: currentColor.bgColor,
-        });
-        line.attr('id', `colored-text-${i}`);
+        line = line.querySelector('span');
 
-        let lineText = line.text();
+        line.style.color = currentColor.textColor;
+        line.style.backgroundColor = currentColor.bgColor;
+        line.id = `colored-text-${i}`;
+
+        let lineText = line.innerText;
 
         // set line font size by length
         if (lineText.length <= 16)
-            line[0].style.fontSize = '70px';
+            line.style.fontSize = '70px';
 
         else if (lineText.length > 16 && lineText.length <= 20)
-            line[0].style.fontSize = '55px';
+            line.style.fontSize = '55px';
 
         else if (lineText.length > 20 && lineText.length <= 26)
-            line[0].style.fontSize = '50px';
+            line.style.fontSize = '50px';
 
         else if (lineText.length > 26 && lineText.length <= 31)
-            line[0].style.fontSize = '43px';
+            line.style.fontSize = '43px';
 
         else if (lineText.length > 31 && lineText.length <= 40)
-            line[0].style.fontSize = '38px';
+            line.style.fontSize = '38px';
 
         else if (lineText.length > 40 && lineText.length <= 50)
-            line[0].style.fontSize = '27px';
+            line.style.fontSize = '27px';
 
         else if (lineText.length > 50)
-            line[0].style.fontSize = '20px';
+            line.style.fontSize = '20px';
     }
 }
 
@@ -96,29 +94,29 @@ function selectAll()
 
 function clearInput()
 {
-    $("#colored-text").html(defaultText);
+    colored_text.innerHTML = defaultText;
     createColoredText();
 }
 
-$("#select-all-btn").on('click', () => {
+document.getElementById('select-all-btn').addEventListener('click', () => {
     selectAll();
 });
 
-$("#clear-btn").on('click', () => {
+document.getElementById('clear-btn').addEventListener('click', () => {
     clearInput();
-    $("#colored-text").focus();
+    colored_text.focus();
 });
 
 // set saved text to page
-$(document).ready(() => {
-    let coloredText = $("#colored-text");
+(function() {
+    const coloredText = document.getElementById('colored-text');
 
-    let mainText = localStorage.getItem('plainText');
+    let mainText = localStorage.getItem(TEXT_STORAGE_NAME);
     if (mainText)
-        coloredText.html(mainText);
+        coloredText.innerHTML = mainText;
     else
-        coloredText.html(defaultText);
+        coloredText.innerHTML = defaultText;
 
     createColoredText();
-    setScrollToBottom(coloredText[0]);
-});
+    setScrollToBottom(coloredText);
+})();
